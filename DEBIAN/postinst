@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+# Source debconf library.
+. /usr/share/debconf/confmodule
+
+#Which do we need to start on boot?
+db_get myrobotlab/startOnBoot
+frameworksToBoot=$RET
+for i in "${frameworksToBoot}"
+do
+	update-rc.d asimov-robotics-$i defaults
+	systemctl daemon-reload
+done
+exit 0

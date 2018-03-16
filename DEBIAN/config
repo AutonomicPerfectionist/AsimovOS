@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+# Source debconf library.
+. /usr/share/debconf/confmodule
+
+# Do you want to start on boot?
+db_input high myrobotlab/startOnBoot || true
+db_go
+
+
+

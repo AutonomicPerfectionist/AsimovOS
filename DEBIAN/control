@@ -1,0 +1,9 @@
+Package: asimov-core
+Version: 0.1-1
+Section: base
+Priority: optional
+Architecture: all
+Depends: debconf (>= 0.2.26)
+Maintainer: Branden Butler <bwtbutler@hotmail.com>
+Description: Collection of robotics frameworks and associated utility scripts.
+ Also allows the creation of dynamic compute clusters.
