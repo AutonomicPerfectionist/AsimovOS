@@ -5,23 +5,21 @@ from rpyc.utils.server import ThreadedServer
 from rpyc.utils.registry import TCPRegistryClient, REGISTRY_PORT
 from asimov import event_dispatch
 from asimov.utils import AsimovConfig
+from asimov.extension import Extension
 
-global log
-log = logging.getLogger(__name__)
+class NodeServiceExt(Extension):
+  def __init__(self):
+	  event_dispatch.add_event_listener("NODE-BOOT", self.boot)
+	  event_dispatch.add_event_listener("NODE-ATTACH", self.attach)
+  def boot(self, ev):
+	  NodeService.setConfig(ev)
+	  thread = threading.Thread(target=ThreadedServer(NodeService, port=int(ev.port), registrar=TCPRegistryClient(ip="0.0.0.0", port=REGISTRY_PORT)).start)
+	  thread.daemon = True
+	  thread.start()
+	  self.logger.info("Node Service started")
 
-
-def init():
-	event_dispatch.add_event_listener("NODE-BOOT", boot)
-	event_dispatch.add_event_listener("NODE-ATTACH", attach)
-def boot(ev):
-	NodeService.setConfig(ev)
-	thread = threading.Thread(target= lambda: ThreadedServer(NodeService, port=int(ev.port), registrar=TCPRegistryClient(ip="0.0.0.0", port=REGISTRY_PORT)).start())
-        thread.daemon = True
-        thread.start()
-        log.info("Node Service started")
-
-def attach(ev):
-	log.debug(str(ev.data))
+def attach(self, ev):
+	self.logger.debug(str(ev.data))
 
 
 class NodeService(rpyc.Service):
@@ -55,4 +53,3 @@ class NodeService(rpyc.Service):
 		return "what is the airspeed velocity of an unladen swallow?"
 
 
-init()

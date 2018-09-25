@@ -1,4 +1,4 @@
-from zeroconf import ServiceBrowser, Zeroconf
+from asimov.zeroconf import ServiceBrowser, Zeroconf
 from asimov.utils import AsimovConfig
 from asimov.event import AsimovEvent
 from asimov import event_dispatch
@@ -12,7 +12,7 @@ if confDict["system"]["debug"]:
 	logLevel = logging.DEBUG
 logging.basicConfig(level=logLevel)
 clusterName = conf.getClusterName()
-
+logger = logging.getLogger(__name__)
 class ZeroConfListener(object):
      def remove_service(self, zeroconf, type, name):
           print("Service %s removed" % (name,))
@@ -24,11 +24,9 @@ class ZeroConfListener(object):
                  event_dispatch.dispatch_event(AsimovEvent(info.properties['type'] + "-ATTACH", info.properties["host"], info.port, "CLIENT", data=info.properties))
 
 if __name__ == "__main__":
-	zeroconf = Zeroconf()
-	listener = ZeroConfListener()
-	browser = ServiceBrowser(zeroconf, "_asimov._tcp.local.", listener)
-	boot.passBoot("CLIENT")
-	try:
-		raw_input("Press enter to exit...\n\n")
-	finally:
-		zeroconf.close()
+  boot.init()
+  zeroconf = Zeroconf()
+  listener = ZeroConfListener()
+  browser = ServiceBrowser(zeroconf, "_asimov._tcp.local.", listener)
+  boot.passBoot("CLIENT")
+  

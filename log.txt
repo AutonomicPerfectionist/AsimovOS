@@ -1,0 +1,91 @@
+DEBUG:asimov.topics:['', 'asimov', 'boot', 'lifecycle']
+DEBUG:asimov.topics:['', 'asimov', 'boot', 'config']
+DEBUG:asimov.extension:walk_dir = usr/share/asimov/extensions/
+DEBUG:asimov.extension:walk_dir (absolute) = /home/branden/Downloads/AsimovOS/usr/share/asimov/extensions
+DEBUG:asimov.extension:--
+Extension Directory Root = usr/share/asimov/extensions/
+DEBUG:asimov.extension:	- file .cli.py.swp (full path: usr/share/asimov/extensions/.cli.py.swp)
+DEBUG:asimov.extension:	- file webui.py (full path: usr/share/asimov/extensions/webui.py)
+DEBUG:asimov.extension:Opened a python file
+DEBUG:asimov.extension:	- file asi_master_handler.py (full path: usr/share/asimov/extensions/asi_master_handler.py)
+DEBUG:asimov.extension:Opened a python file
+DEBUG:asimov.extension:	- file asi_storage_handler.py (full path: usr/share/asimov/extensions/asi_storage_handler.py)
+DEBUG:asimov.extension:Opened a python file
+DEBUG:asimov.extension:	- file server.py (full path: usr/share/asimov/extensions/server.py)
+DEBUG:asimov.extension:Opened a python file
+DEBUG:asimov.extension:	- file node_service.py (full path: usr/share/asimov/extensions/node_service.py)
+DEBUG:asimov.extension:Opened a python file
+DEBUG:asimov.extension:	- file client.py (full path: usr/share/asimov/extensions/client.py)
+DEBUG:asimov.extension:Opened a python file
+DEBUG:asimov.extension:	- file cli.py (full path: usr/share/asimov/extensions/cli.py)
+DEBUG:asimov.extension:Opened a python file
+DEBUG:asimov.extension:	- file node_registry.py (full path: usr/share/asimov/extensions/node_registry.py)
+DEBUG:asimov.extension:Opened a python file
+DEBUG:asimov.extension:Registered extension: ZeroconfClient
+DEBUG:asimov.extension:Registered extension: AsiMaster
+DEBUG:asimov.extension:Registered extension: Server
+DEBUG:asimov.extension:Registered extension: AsiStorage
+DEBUG:asimov.extension:Registered extension: WebUI
+DEBUG:asimov.extension:Registered extension: NodeServiceExt
+DEBUG:asimov.extension:Registered extension: AsiCli
+DEBUG:asimov.extension:Registered extension: NodeRegistry
+DEBUG:Enabler:Found override for extension extensions.node_registry.NodeRegistry
+WARNING:Enabler:Extension extensions.node_registry.NodeRegistry forcibly disabled. Enabler script will not be run
+DEBUG:Enabler:Found override for extension extensions.asi_storage_handler.AsiStorage
+WARNING:Enabler:Extension extensions.asi_storage_handler.AsiStorage forcibly enabled. Enabler script will not be run
+DEBUG:extensions.asi_storage_handler.AsiStorage:AsiStorage.listeners.keys() = ['/asimov/storage/attach', '/asimov/storage/boot']
+DEBUG:extensions.asi_storage_handler.AsiStorage:Listening on topic /asimov/storage/attach
+DEBUG:asimov.topics:['', 'asimov', 'storage', 'attach']
+DEBUG:asimov.event_dispatch:Adding event listener to topic /asimov/storage/attach
+DEBUG:extensions.asi_storage_handler.AsiStorage:Listening on topic /asimov/storage/boot
+DEBUG:asimov.topics:['', 'asimov', 'storage', 'boot']
+DEBUG:asimov.event_dispatch:Adding event listener to topic /asimov/storage/boot
+DEBUG:asimov.event_dispatch:Adding event listener to topic STORAGE-BOOT
+DEBUG:asimov.event_dispatch:Adding event listener to topic STORAGE-ATTACH
+DEBUG:Enabler:Found override for extension extensions.client.ZeroconfClient
+WARNING:Enabler:Extension extensions.client.ZeroconfClient forcibly enabled. Enabler script will not be run
+DEBUG:extensions.client.ZeroconfClient:ZeroconfClient.listeners.keys() = ['/asimov/boot/finished']
+DEBUG:extensions.client.ZeroconfClient:Listening on topic /asimov/boot/finished
+DEBUG:asimov.topics:['', 'asimov', 'boot', 'finished']
+DEBUG:asimov.event_dispatch:Adding event listener to topic /asimov/boot/finished
+DEBUG:Enabler:Found override for extension extensions.webui.WebUI
+WARNING:Enabler:Extension extensions.webui.WebUI forcibly disabled. Enabler script will not be run
+DEBUG:Enabler:Found override for extension extensions.node_service.NodeServiceExt
+WARNING:Enabler:Extension extensions.node_service.NodeServiceExt forcibly disabled. Enabler script will not be run
+DEBUG:Enabler:Found override for extension extensions.asi_master_handler.AsiMaster
+WARNING:Enabler:Extension extensions.asi_master_handler.AsiMaster forcibly disabled. Enabler script will not be run
+DEBUG:Enabler:Found override for extension extensions.cli.AsiCli
+WARNING:Enabler:Extension extensions.cli.AsiCli forcibly disabled. Enabler script will not be run
+DEBUG:Enabler:Found override for extension extensions.server.Server
+WARNING:Enabler:Extension extensions.server.Server forcibly enabled. Enabler script will not be run
+DEBUG:extensions.server.Server:Server.listeners.keys() = ['/asimov/boot/config', '/asimov/boot/lifecycle', '/asimov/extension/server/kill']
+DEBUG:extensions.server.Server:Listening on topic /asimov/boot/config
+DEBUG:asimov.topics:['', 'asimov', 'boot', 'config']
+DEBUG:asimov.event_dispatch:Adding event listener to topic /asimov/boot/config
+DEBUG:extensions.server.Server:Listening on topic /asimov/boot/lifecycle
+DEBUG:asimov.topics:['', 'asimov', 'boot', 'lifecycle']
+DEBUG:asimov.event_dispatch:Adding event listener to topic /asimov/boot/lifecycle
+DEBUG:extensions.server.Server:Listening on topic /asimov/extension/server/kill
+DEBUG:asimov.topics:['', 'asimov', 'extension', 'server', 'kill']
+DEBUG:asimov.event_dispatch:Adding event listener to topic /asimov/extension/server/kill
+DEBUG:asimov.event_dispatch:Searching for listeners on topic /asimov/boot/config
+DEBUG:asimov.event_dispatch:Dispatching event of type /asimov/boot/config
+DEBUG:asimov.event_dispatch:Searching for listeners on topic /asimov/boot/lifecycle
+DEBUG:asimov.event_dispatch:Dispatching event of type /asimov/boot/lifecycle
+DEBUG:extensions.server:Lifecycle event received: start
+DEBUG:asimov.event_dispatch:Adding event listener to topic SERVER-KILL
+INFO:extensions.server:Registering ZeroConf services...
+ERROR:extensions.server:Interface wlan0 in asimov.conf not present on system. Skipping interface...
+ERROR:extensions.server:Interface wlp3s5 in asimov.conf not present on system. Skipping interface...
+ERROR:extensions.server:Interface eth0 in asimov.conf not present on system. Skipping interface...
+INFO:extensions.server:IP 127.0.0.1 on interface lo
+DEBUG:asimov.event_dispatch:Searching for listeners on topic /asimov/master/boot
+DEBUG:asimov.event_dispatch:Searching for listeners on topic /asimov/node/boot
+DEBUG:asimov.event_dispatch:Searching for listeners on topic /asimov/storage/boot
+DEBUG:asimov.event_dispatch:Dispatching event of type /asimov/storage/boot
+INFO:extensions.asi_storage_handler.AsiStorage:Exporting filesystem
+exportfs: could not open /var/lib/nfs/.etab.lock for locking: errno 13 (Permission denied)
+exportfs: can't lock /var/lib/nfs/etab for writing
+INFO:asimov.boot:Taking over boot sequence from SERVER...
+DEBUG:asimov.event_dispatch:Searching for listeners on topic /asimov/boot/finished
+DEBUG:asimov.event_dispatch:Dispatching event of type /asimov/boot/finished

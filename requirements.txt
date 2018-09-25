@@ -1,0 +1,10 @@
+enum34
+zeroconf==0.19.1
+RestrictedPython==4.0b2
+configobj
+rpyc
+cmd2
+iPython
+flask
+psutil
+wget

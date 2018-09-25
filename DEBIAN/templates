@@ -1,6 +1,0 @@
-Template: myrobotlab/startOnBoot
-Type: [multiselect]
-Default: 
-Choices: mrl
-Description: Which frameworks, if any, would you like to start on boot?
- Which of these frameworks would you like to start on boot? The boot script will be used with SystemD, so if you are running Devuan or another SystemD-less distro, please don't choose any. MRL will launch /etc/asimov-robotics/mrl/init.py while ROS will launch /etc/asimov-robotics/ros/init.launch

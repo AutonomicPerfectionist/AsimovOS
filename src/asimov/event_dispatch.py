@@ -1,8 +1,10 @@
+import logging
 """
 Generic event dispatcher which listen and dispatch events
 """
-
+logger = logging.getLogger(__name__)
 _events = dict()
+
 
 def has_listener(event_type, listener):
 	"""
@@ -19,10 +21,15 @@ def dispatch_event(event):
 	Dispatch an instance of AsimovEvent class
 	"""
 	# Dispatch the event to all the associated listeners
+	logger.debug("Searching for listeners on topic %s" % (event.type))
 	if event.type in _events.keys():
-		listeners = _events[ event.type ]
-		for listener in listeners:
-			listener( event )
+	  logger.debug("Dispatching event of type %s" % (event.type))
+	  listeners = _events[ event.type ]
+	  for listener in listeners:
+	    if event.data is not None:
+	      listener( *event.data )
+	    else:
+	      listener(None)
 
 def add_event_listener(event_type, listener):
 	"""
@@ -30,11 +37,12 @@ def add_event_listener(event_type, listener):
 	"""
 	# Add listener to the event type
 	if not has_listener( event_type, listener ):
-		listeners = _events.get( event_type, [] )
-
-		listeners.append( listener )
-
-		_events[ event_type ] = listeners
+	  logger.debug("Adding event listener to topic %s" %  (event_type))
+	  listeners = _events.get( event_type, [] )
+	  
+	  listeners.append( listener )
+	  
+	  _events[ event_type ] = listeners
 
 def remove_event_listener(event_type, listener):
 	"""

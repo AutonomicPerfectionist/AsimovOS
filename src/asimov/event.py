@@ -3,7 +3,7 @@ class AsimovEvent( object ):
     Event object to use with MEventDispatch.
     """
 
-    def __init__(self, event_type, url, port, nodeType, data=None):
+    def __init__(self, event_type, url="localhost", port=0, nodeType="SERVER", data=None):
         """
         The constructor accepts an event type as string and a custom data
         """

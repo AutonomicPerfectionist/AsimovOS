@@ -1,19 +1,26 @@
 import subprocess
 from asimov import event_dispatch
+from asimov.extension import Extension
 import logging
 
-log = logging.getLogger(__name__)
-def init():
-	event_dispatch.add_event_listener("MASTER-BOOT", boot)
-	event_dispatch.add_event_listener("MASTER-ATTACH", attach)
+class AsiMaster(Extension):
+  listeners = {
+    "/asimov/master/boot": "boot",
+    "/asimov/master/attach": "attach",
+    "/asimov/boot/config": "config"
+  }
+  conf = dict()
+  def __init__(self):
+	  #event_dispatch.add_event_listener("MASTER-BOOT", self.boot)
+	  event_dispatch.add_event_listener("MASTER-ATTACH", self.attach)
 
 
-def boot(data):
-	log.info("Booting roscore...")
-	subprocess.call("roscore &", shell=True)
+  def boot(self, data):
+	  self.logger.info("Booting roscore...")
+	  subprocess.call("roscore &", shell=True)
 
-def attach(data):
-	log.info("Attaching RosCore...")
+  def attach(self, data):
+	  self.logger.info("Attaching RosCore...")
 
-
-init()
+  def config(self, conf):
+    self.conf = conf

@@ -1,6 +1,0 @@
-#!/bin/sh -e
-systemctl stop asimov-robotics-mrl.service || true
-systemctl stop asimov-robotics-ros.service || true
-update-rc.d -f asimov-robotics-mrl remove || true
-update-rc.d -f asimov-robotics-ros remove || true
-exit 0
