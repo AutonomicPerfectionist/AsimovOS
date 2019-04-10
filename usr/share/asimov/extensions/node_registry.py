@@ -6,7 +6,7 @@ from rpyc.utils.registry import TCPRegistryServer
 from rpyc.utils.registry import REGISTRY_PORT
 
 class NodeRegistry(Extension):
-  listeners = {"/asimov/master/boot": "boot", "/asimov/master/attach": "attach"}
+  listeners = {"/asimov/extension/master/boot": "boot", "/asimov/extension/master/attach": "attach"}
   def __init__(self):
 	  event_dispatch.add_event_listener("MASTER-BOOT", self.boot)
 	  event_dispatch.add_event_listener("MASTER-ATTACH", self.attach)

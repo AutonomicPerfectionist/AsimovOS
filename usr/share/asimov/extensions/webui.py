@@ -7,5 +7,5 @@ from threading import Thread
 class WebUI(Extension):
   listeners = {"/asimov/boot/lifecycle": "lifecycle"}
   def lifecycle(self, ev):
-    if ev is "start":
+    if ev == "start":
   	  Thread(target=lambda *args: subprocess.call("cd usr/share/asimov/extension-lib/webui/; python webui.py", shell=True)).start()

@@ -1,15 +1,14 @@
 from __future__ import print_function
 import logging
 from asimov import event_dispatch
-from asimov.event import AsimovEvent
+#from asimov.event import AsimovEvent
+import asimov.event
 topicManager = None
 logger = logging.getLogger(__name__)
 def genMethodInvocator(name):
-  exec("""
-def executeMethod(*args, **kwargs):
-  event_dispatch.dispatch_event(AsimovEvent("%s", data=args))
+  return eval("""
+lambda *args, **kwargs: event_dispatch.dispatch_event(asimov.event.AsimovEvent("%s", data=args))
 """ % (name))
-  return executeMethod
 
 class Namespace(object):
   """

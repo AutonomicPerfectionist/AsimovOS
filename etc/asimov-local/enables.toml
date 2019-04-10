@@ -1,0 +1,9 @@
+"extensions.client" = true
+"extensions.asi_master_handler" = true
+"extensions.asi_storage_handler" = true
+"extensions.node_registry" = false
+"extensions.node_service" = false
+"extensions.cli" = true
+"__builtin__" = true
+"extensions.webui" = false
+"extensions.server" = true

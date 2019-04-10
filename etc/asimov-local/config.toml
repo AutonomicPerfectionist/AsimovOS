@@ -1,16 +1,16 @@
 [cluster]
 #The name of the compute cluster, will only connect to other
 #computers broadcasting the same name
-name = AsimovOS
-	[[types]]
-		[[[MASTER]]]
+name = "AsimovOS"
+	[cluster.types]
+		[cluster.types.MASTER]
 		      port = 4646
 
 
-		[[[NODE]]]
+		[cluster.types.NODE]
 			port = 2525
-			aliases = 
-		[[[STORAGE]]]
+			aliases = []
+		[cluster.types.STORAGE]
 			port = 2049
 [requirements]
 
@@ -18,31 +18,31 @@ name = AsimovOS
 #ros.something will only require services with that name
 #mrl.something will require that the service with that name be started
 #asimov.something will require an AsimovOS network resource, such as connected storage 
-boot = asimov.STORAGE, asimov.MASTER
+boot = ["asimov.STORAGE", "asimov.MASTER"]
 
 #Must be present on the network before executing shutdown hooks
-shutdown = asimov.STORAGE
+shutdown = "asimov.STORAGE"
 
 
-[capabilities]
-path = /etc/asimov-local/capabilities/
+#[capabilities]
+path = "/etc/asimov-local/capabilities/"
 
 [system]
-debug = True
+debug = true
 
 #Pulls logger configuration data. May be edited
-logConfigFile = etc/asimov-local/log.conf
+logConfigFile = "etc/asimov-local/log.conf"
 
 #Used to pull default config options. DO NOT EDIT!
-logDefaults = etc/asimov-local/log.conf.default
+logDefaults = "etc/asimov-local/log.conf.default"
 
 #Network interfaces to broadcast and listen on
-interfaces = wlan0, wlp3s5, eth0, lo0, lo
+interfaces = ["wlan0", "wlp3s5", "eth0", "lo0", "lo", "en0"]
 
 #Hostname to broadcast on the networks. Default uses [computerHostname].local, since this is done by default by Avahi
 #Change only if you have changed Avahi's hostname configuration or you want to point to external services
-hostname = DEFAULT
+hostname = "DEFAULT"
 
 #Location of Enabler override files
-enabler-overrides = etc/enabler-overrides/
+enabler-overrides = "etc/enabler-overrides/"
 

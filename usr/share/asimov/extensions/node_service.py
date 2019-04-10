@@ -8,18 +8,19 @@ from asimov.utils import AsimovConfig
 from asimov.extension import Extension
 
 class NodeServiceExt(Extension):
+  listeners = {"/asimov/extension/node/boot": "boot", "/asimov/extension/node/attach": "attach"}
   def __init__(self):
-	  event_dispatch.add_event_listener("NODE-BOOT", self.boot)
-	  event_dispatch.add_event_listener("NODE-ATTACH", self.attach)
+          event_dispatch.add_event_listener("NODE-BOOT", self.boot)
+          event_dispatch.add_event_listener("NODE-ATTACH", self.attach)
   def boot(self, ev):
-	  NodeService.setConfig(ev)
-	  thread = threading.Thread(target=ThreadedServer(NodeService, port=int(ev.port), registrar=TCPRegistryClient(ip="0.0.0.0", port=REGISTRY_PORT)).start)
-	  thread.daemon = True
-	  thread.start()
-	  self.logger.info("Node Service started")
+          NodeService.setConfig(ev)
+          thread = threading.Thread(target=ThreadedServer(NodeService, port=int(ev["port"]), registrar=TCPRegistryClient(ip="0.0.0.0", port=REGISTRY_PORT)).start)
+          thread.daemon = True
+          thread.start()
+          self.logger.info("Node Service started")
 
-def attach(self, ev):
-	self.logger.debug(str(ev.data))
+  def attach(self, ev):
+          self.logger.debug(str(ev.data))
 
 
 class NodeService(rpyc.Service):
@@ -32,7 +33,7 @@ class NodeService(rpyc.Service):
 	@classmethod
 	def setConfig(cls, config):
 		cls.config = config
-		cls.ALIASES = config.data["aliases"]
+		cls.ALIASES = config["aliases"]
 		
 	
 	def on_connect(self):

@@ -5,8 +5,8 @@ import logging
 
 class AsiMaster(Extension):
   listeners = {
-    "/asimov/master/boot": "boot",
-    "/asimov/master/attach": "attach",
+    "/asimov/extension/master/boot": "boot",
+    "/asimov/extension/master/attach": "attach",
     "/asimov/boot/config": "config"
   }
   conf = dict()

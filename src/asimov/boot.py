@@ -7,6 +7,7 @@ from asimov import extension
 from asimov.enabler import Enabler
 from asimov import topics
 
+import time
 from configobj import ConfigObj
 
 
@@ -33,46 +34,52 @@ messages = topics.topicManager.namespaces
 
 conf = dict()
 
+def set_conf(c):
+	global conf
+	conf = c
+
 def init():
-  global conf
-  conf = build_configuration(mainConfigLoc, configDir)
-  logLevel = logging.INFO
-  if conf["system"]["debug"]:
-    logLevel = logging.DEBUG
-  logging.basicConfig(level=logLevel)
+	global conf
+	conf = build_configuration(mainConfigLoc, configDir)
+	logLevel = logging.INFO
+	if conf["system"]["debug"]:
+		logLevel = logging.DEBUG
+	logging.basicConfig(level=logLevel)
 
-  #Since boot is not an extension, this must be called manually
-  topics.topicManager.registerTopic("/asimov/boot/lifecycle")
-  topics.topicManager.registerTopic("/asimov/boot/config")
-  try:
-    os.setpgrp()
-  except OSError as e:
-    log.error("OSError on os.setpgrp(): %s" % (str(e)))
+	#Since boot is not an extension, this must be called manually
+	topics.topicManager.registerTopic("/asimov/boot/lifecycle")
+	topics.topicManager.registerTopic("/asimov/boot/config")
+	try:
+		os.setpgrp()
+	except OSError as e:
+		log.error("OSError on os.setpgrp(): %s" % (str(e)))
 
 
-  #TODO Pass config dict so that enabler scripts have access to it  
-  load_extensions(extensionsDir)
-  messages.asimov.boot.config(conf)
-  messages.asimov.boot.lifecycle("start")
-	
-	
+	#TODO Pass config dict so that enabler scripts have access to it	
+	load_extensions(extensionsDir)
+	messages.asimov.boot.config(conf)
+	messages.asimov.boot.lifecycle("start")
+	messages.asimov.boot.finished()	
+	#while True:
+	#	time.sleep(5)
+
 def load_extensions(folder):
-  """
-  Load extensions in folder and run Enabler scripts
-  """
-  extension.load_extensions(extensionsDir)
-  extension.enabler = Enabler(extension.registered_extensions, {}, {"extensions.client": True, "extensions.asi_master_handler": False, "extensions.asi_storage_handler": True, "extensions.node_registry": False, "extensions.node_service": False, "extensions.cli": False, "__builtin__": True, "extensions.webui": False, "extensions.server": True})
+	"""
+	Load extensions in folder and run Enabler scripts
+	"""
+	extension.load_extensions(extensionsDir)
+	extension.enabler = Enabler(extension.registered_extensions, {}, {"extensions.client": False, "extensions.asi_master_handler": False, "extensions.asi_storage_handler": False, "extensions.node_registry": False, "extensions.node_service": False, "extensions.cli": True, "__builtin__": True, "extensions.webui": False, "extensions.server": False})
 	
 def build_configuration(main, folder):
-  """
-  Build the master configuration dictionary. Main is the file
-  location of the primary configuration, and folder is the directory
-  where secondary files are located
-  """
-  if not folder.endswith('/'):
+	"""
+	Build the master configuration dictionary. Main is the file
+	location of the primary configuration, and folder is the directory
+	where secondary files are located
+	"""
+	if not folder.endswith('/'):
 			folder += '/'
-  #TODO Load and combine secondary configs
-  return ConfigObj(main)
+	#TODO Load and combine secondary configs
+	return ConfigObj(main)
 
 def passBoot(type):
 	log.info("Taking over boot sequence from %s..." % (type))
